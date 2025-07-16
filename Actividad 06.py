@@ -69,4 +69,33 @@ def buscar_producto(inventario):
 def calcular_valor_total(inventario):
     total = sum(p["precio"] * p["cantidad"] for p in inventario.values())
     print(f"\nValor total del inventario: Q{total:.2f}")
+def contar_por_categoría(inventario):
+    conteo = {"Hombre": 0, "Mujer": 0, "Niño": 0}
+    for producto in inventario.values():
+        categoria = producto["categoría"]
+        if categoria in conteo:
+            conteo[categoria] += 1
+    print("\nProductos por categoría:")
+    for cat, cant in conteo.items():
+        print(f"  {cat}: {cant} producto(s)")
 
+# Programa principal
+def main():
+    inventario = {}
+
+    try:
+        n = int(input("¿Cuántos productos desea ingresar? "))
+        for i in range(n):
+            print(f"\nIngresando producto #{i + 1}")
+            ingresar_producto(inventario)
+
+        mostrar_inventario(inventario)
+        buscar_producto(inventario)
+        calcular_valor_total(inventario)
+        contar_por_categoría(inventario)
+
+    except ValueError:
+        print("Entrada no válida. Reinicie el programa.")
+
+if __name__ == "__main__":
+    main()
